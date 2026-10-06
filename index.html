@@ -13,6 +13,30 @@
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <filter id="cloud-soft-a" x="-25%" y="-35%" width="150%" height="170%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018 0.026" numOctaves="3" seed="4" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="30" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+      <feGaussianBlur in="disp" stdDeviation="5"/>
+    </filter>
+    <filter id="cloud-soft-b" x="-25%" y="-35%" width="150%" height="170%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.022 0.02" numOctaves="3" seed="11" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="26" xChannelSelector="G" yChannelSelector="R" result="disp"/>
+      <feGaussianBlur in="disp" stdDeviation="6"/>
+    </filter>
+    <g id="cloud-shape">
+      <g fill="#aeb8d4" opacity="0.55" transform="translate(0 14)">
+        <ellipse cx="150" cy="118" rx="118" ry="34"/>
+        <circle cx="120" cy="82" r="50"/>
+        <circle cx="188" cy="86" r="46"/>
+      </g>
+      <g fill="#ffffff">
+        <circle cx="68" cy="98" r="42"/>
+        <circle cx="122" cy="68" r="54"/>
+        <circle cx="190" cy="74" r="48"/>
+        <circle cx="238" cy="100" r="40"/>
+        <ellipse cx="150" cy="108" rx="112" ry="36"/>
+      </g>
+    </g>
     <g id="leaf-branch">
       <path d="M4 116 C 10 90, 8 60, 26 30 C 34 16, 46 8, 58 4" fill="none" stroke="#5f93a3" stroke-width="2" stroke-linecap="round"/>
       <ellipse cx="20" cy="98" rx="13" ry="6" fill="#8fc2ce" transform="rotate(-35 20 98)"/>
@@ -36,6 +60,15 @@
 </svg>
 
 <div class="stage" id="stage">
+  <div class="clouds" aria-hidden="true">
+    <svg class="cloud c1" viewBox="-40 -50 380 260"><g filter="url(#cloud-soft-a)"><use href="#cloud-shape"/></g></svg>
+    <svg class="cloud c2" viewBox="-40 -50 380 260"><g filter="url(#cloud-soft-b)"><use href="#cloud-shape" transform="translate(300 0) scale(-1 1)"/></g></svg>
+    <svg class="cloud c3" viewBox="-40 -50 380 260"><g filter="url(#cloud-soft-b)"><use href="#cloud-shape"/></g></svg>
+    <svg class="cloud c4" viewBox="-40 -50 380 260"><g filter="url(#cloud-soft-a)"><use href="#cloud-shape" transform="translate(300 0) scale(-1 1)"/></g></svg>
+    <svg class="cloud c5" viewBox="-40 -50 380 260"><g filter="url(#cloud-soft-a)"><use href="#cloud-shape" transform="translate(300 0) scale(-1 1)"/></g></svg>
+    <svg class="cloud c6" viewBox="-40 -50 380 260"><g filter="url(#cloud-soft-b)"><use href="#cloud-shape"/></g></svg>
+  </div>
+
   <div class="envelope" id="envelope">
     <div class="envelope-shadow"></div>
     <div class="envelope-body">
