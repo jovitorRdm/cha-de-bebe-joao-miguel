@@ -28,6 +28,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .cloud { animation: none !important; }
 }
 
 /* ---------- Envelope stage ---------- */
@@ -40,12 +41,41 @@ body {
   justify-content: center;
   padding: 24px;
   background:
-    radial-gradient(circle at 50% 20%, rgba(255,255,255,0.08), transparent 60%),
-    var(--blue-deep);
+    radial-gradient(circle at 50% 18%, rgba(255,255,255,0.14), transparent 60%),
+    linear-gradient(180deg, #86aecb 0%, #6891b1 42%, #4f7291 100%);
   position: relative;
 }
 
+/* ---------- Nuvens de fundo ---------- */
+.clouds {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.cloud {
+  position: absolute;
+  width: clamp(240px, 46vw, 560px);
+  height: auto;
+  overflow: visible;
+  animation: cloud-drift 70s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.c1 { top: 1%;  left: -10%; opacity: 0.55; }
+.c2 { top: 9%;  right: -14%; width: clamp(200px, 38vw, 470px); opacity: 0.4;  animation-duration: 90s; animation-delay: -30s; }
+.c3 { top: 40%; left: -22%; width: clamp(220px, 40vw, 500px); opacity: 0.26; animation-duration: 80s; animation-delay: -12s; }
+.c4 { top: 52%; right: -20%; opacity: 0.32; animation-duration: 100s; animation-delay: -50s; }
+.c5 { bottom: 1%; left: -8%; opacity: 0.5;  animation-duration: 85s; animation-delay: -22s; }
+.c6 { bottom: -5%; right: -10%; width: clamp(260px, 50vw, 600px); opacity: 0.46; animation-duration: 75s; animation-delay: -40s; }
+
+@keyframes cloud-drift {
+  from { transform: translateX(-26px); }
+  to   { transform: translateX(30px); }
+}
+
 .envelope {
+  z-index: 1;
   position: relative;
   width: min(380px, 90vw);
   height: 600px; /* fallback; JS sets the precise height to fit the card */
@@ -255,7 +285,8 @@ body {
   position: absolute;
   bottom: -34px; left: 0; right: 0;
   text-align: center;
-  color: rgba(247,241,224,0.65);
+  color: rgba(251,247,234,0.95);
+  text-shadow: 0 1px 6px rgba(40,70,95,0.55);
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
