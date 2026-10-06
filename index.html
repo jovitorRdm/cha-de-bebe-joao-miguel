@@ -123,10 +123,25 @@
   </div>
 
   <section class="rsvp" id="rsvp">
-    <p class="eyebrow">RSVP</p>
-    <h2 class="section-title">Confirme sua presença</h2>
-    <p class="invite-text">Preencha os dados abaixo. Ao final, uma mensagem será
-      preparada para você enviar direto pelo WhatsApp.</p>
+    <div id="rsvpIntro">
+      <p class="eyebrow">RSVP</p>
+      <h2 class="section-title">Confirme sua presença</h2>
+      <p class="invite-text">Preencha os dados abaixo. Ao final, uma mensagem será
+        preparada para você enviar direto pelo WhatsApp.</p>
+    </div>
+
+    <div class="rsvp-success" id="rsvpSuccess" hidden tabindex="-1">
+      <div class="success-icon" aria-hidden="true">
+        <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" class="success-circle"/><path d="M15 27 l8 8 14 -16" class="success-check"/></svg>
+      </div>
+      <h2 class="success-title" id="successTitle">Presença confirmada!</h2>
+      <p class="success-text" id="successText"></p>
+      <ul class="success-summary" id="successSummary"></ul>
+      <p class="success-warning" id="successWarning" hidden>Não conseguimos registrar sua resposta no painel dos pais. Por favor, envie a mensagem pelo WhatsApp para garantir que ela chegue até eles.</p>
+      <p class="success-hint">Se o WhatsApp não abriu sozinho, toque no botão abaixo para enviar a mensagem.</p>
+      <a class="submit-btn success-whatsapp" id="successWhatsapp" href="#" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
+      <button type="button" class="link-btn" id="newRsvpBtn">Fazer outra confirmação</button>
+    </div>
 
     <form class="rsvp-form" id="rsvpForm">
       <label class="field">

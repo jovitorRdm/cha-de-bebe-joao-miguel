@@ -161,6 +161,7 @@ function initRsvpForm() {
     submitBtn.disabled = true;
     submitBtn.textContent = "Enviando...";
 
+    let savedToDatabase = false;
     try {
       await addDoc(collection(db, "rsvps"), {
         guestName,
@@ -170,6 +171,7 @@ function initRsvpForm() {
         message: guestMessage,
         createdAt: serverTimestamp(),
       });
+      savedToDatabase = true;
     } catch (err) {
       console.error("Erro ao salvar confirmação no banco:", err);
       // Mesmo se falhar ao salvar, seguimos para o WhatsApp para não perder a confirmação.
@@ -199,7 +201,70 @@ function initRsvpForm() {
 
     form.reset();
     document.getElementById("companionsList").innerHTML = "";
+
+    showSuccess({
+      guestName,
+      attendance,
+      totalPeople,
+      companions: companionInputs,
+      whatsappUrl: url,
+      savedToDatabase,
+    });
   });
+
+  document.getElementById("newRsvpBtn").addEventListener("click", () => {
+    document.getElementById("rsvpSuccess").hidden = true;
+    document.getElementById("rsvpIntro").hidden = false;
+    form.hidden = false;
+    document.getElementById("guestName").focus();
+  });
+}
+
+/* ---------- Tela de confirmação ---------- */
+function showSuccess({ guestName, attendance, totalPeople, companions, whatsappUrl, savedToDatabase }) {
+  const form = document.getElementById("rsvpForm");
+  const intro = document.getElementById("rsvpIntro");
+  const success = document.getElementById("rsvpSuccess");
+  const firstName = guestName.split(" ")[0];
+
+  document.getElementById("successTitle").textContent =
+    attendance === "sim" ? "Presença confirmada!" : "Recebemos sua resposta";
+
+  document.getElementById("successText").textContent =
+    attendance === "sim"
+      ? `Obrigado, ${firstName}! Ficamos muito felizes em saber que você vai celebrar o ${CONFIG.eventTitle} do ${CONFIG.babyName} com a gente.`
+      : `Obrigado por avisar, ${firstName}. Vamos sentir sua falta, mas agradecemos todo o carinho!`;
+
+  const summary = document.getElementById("successSummary");
+  summary.innerHTML = "";
+  const addItem = (label, value) => {
+    const li = document.createElement("li");
+    const l = document.createElement("span");
+    l.className = "sum-label";
+    l.textContent = label;
+    const v = document.createElement("span");
+    v.className = "sum-value";
+    v.textContent = value;
+    li.append(l, v);
+    summary.appendChild(li);
+  };
+
+  addItem("Nome", guestName);
+  if (attendance === "sim") {
+    addItem("Pessoas confirmadas", String(totalPeople));
+    if (companions.length > 0) addItem("Acompanhantes", companions.join(", "));
+    addItem("Data e horário", `${CONFIG.displayDate}, às ${CONFIG.displayTime}`);
+    addItem("Local", `${CONFIG.addressLine1} — ${CONFIG.addressLine2}, ${CONFIG.addressLine3}`);
+  }
+
+  document.getElementById("successWarning").hidden = savedToDatabase;
+  document.getElementById("successWhatsapp").href = whatsappUrl;
+
+  intro.hidden = true;
+  form.hidden = true;
+  success.hidden = false;
+  success.scrollIntoView({ behavior: "smooth", block: "center" });
+  success.focus({ preventScroll: true });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
