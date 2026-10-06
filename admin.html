@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel — Chá de Bebê do João Miguel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin-style.css">
+</head>
+<body class="admin-body">
+
+<!-- ---------- Tela de login ---------- -->
+<div class="login-screen" id="loginScreen">
+  <form class="login-card" id="loginForm">
+    <p class="login-eyebrow">Painel dos pais</p>
+    <h1 class="login-title">Chá de Bebê<br>do João Miguel</h1>
+    <label class="field">
+      <span class="field-label">E-mail</span>
+      <input type="email" id="loginEmail" required placeholder="voce@email.com" autocomplete="username">
+    </label>
+    <label class="field">
+      <span class="field-label">Senha</span>
+      <input type="password" id="loginPassword" required placeholder="••••••••" autocomplete="current-password">
+    </label>
+    <button type="submit" class="submit-btn" id="loginBtn">Entrar</button>
+    <p class="login-error" id="loginError" hidden></p>
+  </form>
+</div>
+
+<!-- ---------- Painel (visível após login) ---------- -->
+<div class="dashboard" id="dashboard" hidden>
+
+  <header class="dash-header">
+    <div>
+      <p class="dash-eyebrow">Painel de confirmações</p>
+      <h1 class="dash-title">Chá de Bebê do João Miguel</h1>
+    </div>
+    <button class="logout-btn" id="logoutBtn" type="button">Sair</button>
+  </header>
+
+  <section class="summary-grid" id="summaryGrid">
+    <div class="summary-card">
+      <span class="summary-value" id="sumConfirmedPeople">0</span>
+      <span class="summary-label">Pessoas confirmadas</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-value" id="sumConfirmedGuests">0</span>
+      <span class="summary-label">Convidados que vão</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-value" id="sumDeclined">0</span>
+      <span class="summary-label">Não poderão ir</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-value" id="sumTotal">0</span>
+      <span class="summary-label">Total de respostas</span>
+    </div>
+  </section>
+
+  <section class="table-section">
+    <div class="table-toolbar">
+      <input type="text" id="searchInput" placeholder="Buscar por nome...">
+    </div>
+
+    <div class="table-wrap">
+      <table class="rsvp-table" id="rsvpTable">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Status</th>
+            <th>Acompanhantes</th>
+            <th>Pessoas</th>
+            <th>Mensagem</th>
+            <th>Data</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="rsvpTableBody">
+          <tr class="empty-row" id="emptyRow"><td colspan="7">Carregando respostas...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- ---------- Modal de edição ---------- -->
+<div class="modal-overlay" id="editOverlay" hidden>
+  <form class="modal-card" id="editForm">
+    <h2 class="modal-title">Editar confirmação</h2>
+
+    <label class="field">
+      <span class="field-label">Nome</span>
+      <input type="text" id="editName" required>
+    </label>
+
+    <fieldset class="field attendance-field">
+      <legend class="field-label">Presença</legend>
+      <div class="attendance-options">
+        <label class="attendance-option"><input type="radio" name="editAttendance" value="sim"> <span>Vai</span></label>
+        <label class="attendance-option"><input type="radio" name="editAttendance" value="nao"> <span>Não vai</span></label>
+      </div>
+    </fieldset>
+
+    <label class="field">
+      <span class="field-label">Acompanhantes <span class="field-hint">(um por linha)</span></span>
+      <textarea id="editCompanions" rows="3"></textarea>
+    </label>
+
+    <label class="field">
+      <span class="field-label">Mensagem</span>
+      <textarea id="editMessage" rows="2"></textarea>
+    </label>
+
+    <div class="modal-actions">
+      <button type="button" class="cancel-btn" id="cancelEditBtn">Cancelar</button>
+      <button type="submit" class="submit-btn" id="saveEditBtn">Salvar alterações</button>
+    </div>
+  </form>
+</div>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>

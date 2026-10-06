@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /rsvps/{docId} {
+      // Qualquer visitante pode CRIAR uma confirmação (enviar o formulário do convite).
+      allow create: if true;
+
+      // Só quem estiver logado (vocês, no painel) pode LER, EDITAR ou EXCLUIR.
+      allow read, update, delete: if request.auth != null;
+    }
+  }
+}
