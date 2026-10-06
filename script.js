@@ -25,7 +25,7 @@ const CONFIG = {
   giftSuggestion: "Fralda M, G, GG e Mimo",
   // Número de WhatsApp que vai RECEBER as confirmações.
   // Formato: código do país + DDD + número, só dígitos. Brasil = 55.
-  whatsappNumber: "5562981542871",
+  whatsappNumber: "556285403135",
 };
 
 /* ---------- Firebase ---------- */
